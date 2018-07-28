@@ -2,6 +2,10 @@ function clearR(){
   circleArray.forEach((cir)=>{cir.rad=0});
 }
 
+function undoR(){
+  circleArray.pop();
+}
+
 function isInside(circle_x, circle_y,circle_rad, mouse_x, mouse_y){
     if (
           Math.pow(mouse_x-circle_x,2) +
