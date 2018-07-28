@@ -12,103 +12,10 @@
   	<div id="paint">
   		<canvas id="myCanvas" width="800px" height="600px" style="border:1px solid #000000;"></canvas>
 	</div>
-    <script>
-
-		var circleArray = [];let newA=0;let check=false;
-		var canvas = document.getElementById('myCanvas');
-		var ctx = canvas.getContext('2d');
-		let curX,curY;
-		var painting = document.getElementById('paint');
-		var paint_style = getComputedStyle(painting);
-		var mouse = {x: 0, y: 0};
-function isInside(circle_x, circle_y,rad_c, x_c, y_c){
-    if (
-		(x_c-circle_x)*(x_c-circle_x) +
-		(y_c-circle_y)*(y_c-circle_y) <= 
-         rad_c*rad_c
-		)
-        return true;
-    else
-        return false;
-}
-canvas.addEventListener('mousemove', function(e) {
-  mouse.x = e.pageX - this.offsetLeft;
-  mouse.y = e.pageY - this.offsetTop;
-}, false);
-function getRndColor() {
-    var r = 255*Math.random()|0,
-        g = 255*Math.random()|0,
-        b = 255*Math.random()|0;
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
-let color=getRndColor();
- 
-canvas.addEventListener('mousedown', function(e) {
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    curX=mouse.x;curY=mouse.y;
-    canvas.addEventListener('mousemove', onPaint, false);
-}, false);
- 
-canvas.addEventListener('mouseup', function() {
-    canvas.removeEventListener('mousemove', onPaint, false);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-	Math.abs(curX-mouse.x)>0?circleArray.push({x:curX,y:curY,rad:curX-mouse.x,col:getRndColor()}):'';
-	 canvas.addEventListener("click", ()=>{
-		circleArray.some((obj)=>{check=false;
-				if(isInside(obj.x, obj.y, obj.rad, mouse.x, mouse.y))
-					{
-						check=true;
-						return true;
-					}
-		});
-		if(check) document.getElementById("info").innerHTML="HIT";
-		else document.getElementById("info").innerHTML="MISS";
-	 }, false);
-	 canvas.addEventListener("dblclick", ()=>{
-		circleArray.some((obj)=>{check=false;
-				if(isInside(obj.x, obj.y, obj.rad, mouse.x, mouse.y))
-					{
-						check=true;obj.rad=0;
-						return true;
-					}
-		});
-		if(check) document.getElementById("info").innerHTML="HIT";
-		else document.getElementById("info").innerHTML="MISS";
-	 }, false);
-}, false);
- 
-var onPaint = function() {	
-	ctx.beginPath();
-    ctx.arc(curX, curY, Math.abs(curX-mouse.x), 0, 2 * Math.PI);
-	ctx.strokeStyle =  ctx.fillStyle = getRndColor();
-    ctx.fill();
-    ctx.stroke();
-};
-setInterval(()=>{
-		const context = canvas.getContext('2d');
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		circleArray.forEach((obj)=>{
-		var canvas = document.getElementById('myCanvas');
-		var ctx = canvas.getContext('2d');
-		var painting = document.getElementById('paint');
-		var paint_style = getComputedStyle(painting);
-		let color=getRndColor();
-		var c = document.getElementById("myCanvas");
-		var ctx = c.getContext("2d");
-		ctx.beginPath();
-		ctx.arc(obj.x, obj.y, Math.abs(obj.rad), 0, 2 * Math.PI);
-		ctx.strokeStyle =  ctx.fillStyle = obj.col;
-		ctx.fill();
-		ctx.stroke();	
-	});
-
-},25);
-
-    </script>
-    <input id="clearCanvas" type="button" value="reset" onclick="const context = canvas.getContext('2d');
-
-    context.clearRect(0, 0, canvas.width, canvas.height);">
+    <script src="varibles.js"></script>
+    <script src="functions.js"></script>
+    <script src="index.js"></script>
+    <input id="clearCanvas" type="button" value="reset" onclick="clearR()">
 	<h1 id="info"></h1>
   </body>
-</html>            
+</html>
